@@ -4,7 +4,7 @@ import ResizeObserver from 'resize-observer-polyfill';
 import Photo, { photoPropType } from './Photo';
 import { computeColumnLayout } from './layouts/columns';
 
-const Gallery = React.memo(function Gallery({
+const PhotoContainer = React.memo(function Gallery({
   photos,
   direction,
   margin
@@ -15,11 +15,8 @@ const Gallery = React.memo(function Gallery({
   useLayoutEffect(() => {
     let animationFrameID = null;
     const observer = new ResizeObserver(entries => {
-      // only do something if width changes
       const newWidth = entries[0].contentRect.width;
       if (containerWidth !== newWidth) {
-        // put in an animation frame to stop "benign errors" from
-        // ResizObserver https://stackoverflow.com/questions/49384120/resizeobserver-loop-limit-exceeded
         animationFrameID = window.requestAnimationFrame(() => {
           setContainerWidth(Math.floor(newWidth));
         });
@@ -45,9 +42,8 @@ const Gallery = React.memo(function Gallery({
   thumbs = computeColumnLayout({ containerWidth: width, columns, margin, photos });
   galleryStyle.height = thumbs[thumbs.length - 1].containerHeight;
 
-
   return (
-    <div className="react-photo-gallery--gallery">
+    <div className="photo-gallery--gallery">
       <div ref={galleryEl} style={galleryStyle}>
         {thumbs.map((thumb, index) => {
           const { left, top, containerHeight, ...photo } = thumb;
@@ -67,7 +63,7 @@ const Gallery = React.memo(function Gallery({
   );
 });
 
-Gallery.propTypes = {
+PhotoContainer.propTypes = {
   photos: PropTypes.arrayOf(photoPropType).isRequired,
   direction: PropTypes.string,
   targetRowHeight: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
@@ -75,10 +71,10 @@ Gallery.propTypes = {
   margin: PropTypes.number
 };
 
-Gallery.defaultProps = {
+PhotoContainer.defaultProps = {
   margin: 10,
   direction: 'column',
   targetRowHeight: 300,
 };
 export { Photo };
-export default Gallery;
+export default PhotoContainer;

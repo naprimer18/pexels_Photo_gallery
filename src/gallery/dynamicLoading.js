@@ -1,21 +1,16 @@
 import React, { useState, useEffect } from "react";
-import Gallery from "./src/Gallery";
-import { debounce } from "./utils";
+import PhotoContainer from "./PhotoContainer";
+import { debounce } from "./debounce";
 
 function DynamicLoading({ photos }) {
-  const [images, setImages] = useState(photos.slice(0, 15));
+  const [images, setImages] = useState(photos.slice(0, 10));
   const [pageNum, setPageNum] = useState(1);
-  const [loadedAll, setLoadedAll] = useState(false);
-  const TOTAL_PAGES = 3;
+  
   const loadMorePhotos = debounce(() => {
-    if (pageNum > TOTAL_PAGES) {
-      setLoadedAll(true);
-      return;
-    }
-
-    setImages(images.concat(photos.slice(images.length, images.length + 6)));
+    // Add chek if end callBack or Redux  
+    setImages(images.concat(photos.slice(images.length, images.length + 10)));
     setPageNum(pageNum + 1);
-  }, 200);
+  }, 100);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -34,12 +29,7 @@ function DynamicLoading({ photos }) {
 
   return (
     <div>
-      <Gallery photos={images} direction={"column"} />
-      {!loadedAll && (
-        <div className="loading-msg" id="msg-loading-more">
-          Loading
-        </div>
-      )}
+      <PhotoContainer photos={images} direction={"column"} />
     </div>
   );
 }
