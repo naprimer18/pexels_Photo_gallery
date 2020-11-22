@@ -1,14 +1,10 @@
 import React, { useState, useLayoutEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import ResizeObserver from 'resize-observer-polyfill';
-import Photo, { photoPropType } from './Photo';
+import Photo, { photoPropType } from './photo';
 import { computeColumnLayout } from './layouts/columns';
 
-const PhotoContainer = React.memo(function Gallery({
-  photos,
-  direction,
-  margin
-}) {
+const PhotoContainer = React.memo(function Gallery({photos,direction,margin}) {
   const [containerWidth, setContainerWidth] = useState(0);
   const galleryEl = useRef(null);
 
@@ -32,9 +28,8 @@ const PhotoContainer = React.memo(function Gallery({
   if (!containerWidth) return <div ref={galleryEl}>&nbsp;</div>;
  
   const width = containerWidth - 1;
-  let galleryStyle, thumbs,columns;
-  
-  if (containerWidth >= 500) columns = 2;
+  let galleryStyle, thumbs,columns = 1;
+  if (containerWidth > 500) columns = 2;
   if (containerWidth >= 900) columns = 3;
   if (containerWidth >= 1500) columns = 4;
     

@@ -1,16 +1,12 @@
-import React, { Component } from 'react';
-import Main from './gallery/Main';
+import React from 'react';
+import Main from './gallery/main';
 import Header from './header'
 
-class App extends Component {
-  render() {
-    return (
-      <>
-        <Header/>
-        <Main/>
-      </>
-    );
-  }
-}
+const App = () => (
+  <>
+    <Header/>
+    <Main/>
+  </>
+)
 
 export default App;

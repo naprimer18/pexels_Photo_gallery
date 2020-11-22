@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import PhotoContainer from "./PhotoContainer";
+import PhotoContainer from "./photoContainer";
 import { debounce } from "./debounce";
 
 function DynamicLoading({ photos }) {
@@ -16,6 +16,10 @@ function DynamicLoading({ photos }) {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   });
+
+  useEffect(() => {
+    setImages(photos.slice(0, 10));
+  }, [photos]);
 
   const handleScroll = () => {
     let scrollY =

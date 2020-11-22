@@ -19,7 +19,10 @@
     "react-router-redux": "^4.0.8",
     "react-scripts": "^3.4.1",
     "redux": "^4.0.5",
-    "resize-observer-polyfill": "^1.5.0"
+    "resize-observer-polyfill": "^1.5.0",
+    "redux-saga": "^0.16.2",
+    "redux-thunk": "2.3.0",
+    "connected-react-router": "4.5.0"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const imgWithClick = { cursor: 'pointer' };
-
-const Photo = ({ photo, margin, direction, top, left, key }) => {
+const Photo = ({ photo, margin, top, left, key }) => {
   const imgStyle = { margin: margin, display: 'block',position:'absolute',left,top};
   
   return (
